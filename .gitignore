@@ -12,6 +12,8 @@ dist
 dist-demos
 dist-full
 dist-ssr
+package/dist
+temp
 *.local
 
 # Editor directories and files

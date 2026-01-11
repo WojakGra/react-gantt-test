@@ -2,10 +2,21 @@ import js from '@eslint/js';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
 
 export default [
   {
-    ignores: ['dist', 'dist-demos', 'dist-full', 'src/libs', 'vite.config.js'],
+    ignores: [
+      'dist',
+      'dist-demos',
+      'dist-full',
+      'package/dist',
+      'temp',
+      'src/libs',
+      'vite.config.js',
+      '@types',
+      'types',
+    ],
   },
   {
     files: ['**/*.{js,jsx}'],
@@ -33,6 +44,7 @@ export default [
         performance: 'readonly',
         cancelAnimationFrame: 'readonly',
         CustomEvent: 'readonly',
+        process: 'readonly',
       },
     },
     plugins: {
@@ -66,6 +78,42 @@ export default [
 
       // TODO: later
       'react/prop-types': 'off',
+    },
+  },
+  ...tseslint.configs.recommended.map((config) => ({
+    ...config,
+    files: ['**/*.{ts,tsx}'],
+  })),
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+      '@typescript-eslint': tseslint.plugin,
+    },
+    settings: {
+      react: {
+        version: '18.2',
+      },
+    },
+    rules: {
+      ...react.configs.recommended.rules,
+      ...react.configs['jsx-runtime'].rules,
+      'react/prop-types': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
     },
   },
 ];

@@ -1,0 +1,95 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border: 1px solid var(--mantine-color-gray-3);
+  background: var(--mantine-color-white);
+  overflow: hidden;
+}
+
+.toolbar {
+  padding: var(--mantine-spacing-sm);
+  border-bottom: 1px solid var(--mantine-color-gray-3);
+  background: var(--mantine-color-gray-0);
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.leftPanel {
+  width: 300px;
+  border-right: 1px solid var(--mantine-color-gray-3);
+  overflow: hidden;
+}
+
+.rightPanel {
+  flex: 1;
+  overflow: hidden;
+}
+
+.chart {
+  position: relative;
+  min-width: fit-content;
+}
+
+.chartHeader {
+  position: relative;
+  height: 40px;
+  border-bottom: 2px solid var(--mantine-color-gray-4);
+  background: var(--mantine-color-gray-1);
+}
+
+.timeScale {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--mantine-color-gray-3);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.chartBody {
+  position: relative;
+  background-image: linear-gradient(
+    to right,
+    var(--mantine-color-gray-2) 1px,
+    transparent 1px
+  );
+  background-size: var(--gantt-cell-width, 100px) 100%;
+  min-height: 400px;
+}
+
+.taskRow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid var(--mantine-color-gray-2);
+}
+
+.taskBar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.taskBar:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}

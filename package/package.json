@@ -1,0 +1,42 @@
+{
+  "name": "@wojakgra/react-gantt-mantine",
+  "version": "1.0.0",
+  "description": "A customizable, high-performance React Gantt chart component built with Mantine UI",
+  "homepage": "https://github.com/WojakGra/react-gantt-test#readme",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "mantine",
+    "gantt",
+    "gantt-chart",
+    "timeline",
+    "typescript"
+  ],
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./styles.css": "./dist/styles.css",
+    "./styles.layer.css": "./dist/styles.layer.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WojakGra/react-gantt-test.git"
+  },
+  "peerDependencies": {
+    "@mantine/core": ">=7.0.0",
+    "@mantine/hooks": ">=7.0.0",
+    "react": "^18.x || ^19.x",
+    "react-dom": "^18.x || ^19.x"
+  }
+}
