@@ -16,6 +16,7 @@ import {
   Button,
 } from '@mantine/core';
 import { IconPlus, IconZoomIn, IconZoomOut } from '@tabler/icons-react';
+import { TaskForm } from './TaskForm';
 import classes from './Gantt.module.css';
 
 export type GanttStylesNames =
@@ -178,6 +179,7 @@ export const Gantt = factory<GanttFactory>((_props, ref) => {
   } = props;
 
   const [zoom, setZoom] = useState(1);
+  const [taskFormOpened, setTaskFormOpened] = useState(false);
 
   const getStyles = useStyles<GanttFactory>({
     name: 'Gantt',
@@ -191,6 +193,14 @@ export const Gantt = factory<GanttFactory>((_props, ref) => {
     vars,
     varsResolver,
   });
+
+  const handleCreateTask = (taskData: Omit<Task, 'id'>) => {
+    const newTask: Task = {
+      ...taskData,
+      id: Date.now(), // Generate a temporary ID
+    };
+    onTaskCreate?.(newTask);
+  };
 
   // Calculate date range
   const { startDate, endDate } = useMemo(() => {
@@ -225,6 +235,14 @@ export const Gantt = factory<GanttFactory>((_props, ref) => {
 
   return (
     <Box ref={ref} {...getStyles('root')} {...others}>
+      {/* Task Form Modal */}
+      <TaskForm
+        opened={taskFormOpened}
+        onClose={() => setTaskFormOpened(false)}
+        onSubmit={handleCreateTask}
+        existingTasks={tasks}
+      />
+
       {/* Toolbar */}
       <div {...getStyles('toolbar')}>
         <Group justify="space-between">
@@ -232,15 +250,7 @@ export const Gantt = factory<GanttFactory>((_props, ref) => {
             <Button
               size="sm"
               leftSection={<IconPlus size={16} />}
-              onClick={() =>
-                onTaskCreate?.({
-                  id: Date.now(),
-                  text: 'New Task',
-                  start: new Date(),
-                  end: new Date(Date.now() + 24 * 60 * 60 * 1000),
-                  type: 'task',
-                })
-              }
+              onClick={() => setTaskFormOpened(true)}
               disabled={readonly}
             >
               Add Task
